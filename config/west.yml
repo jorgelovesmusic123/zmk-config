@@ -20,7 +20,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v0.3
       import: app/west.yml
     - name: zmk-keyboards-ataraxia
       remote: miketronic
@@ -36,7 +36,7 @@ manifest:
       revision: main
     - name: zmk-input-processor-report-rate-limit
       remote: badjeff
-      revision: main
+      revision: f43f37a
 
   self:
     path: config
