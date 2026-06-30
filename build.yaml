@@ -8,23 +8,23 @@
 # shield: [ "corne_left", "corne_right" ]
 # include:
 #   - board: bdn9_rev2
-#   - board: nice_nano_v2
+#   - board: nice_nano
 #     shield: reviung41 
 #
 #  shield: aeliux_4 rgbled_adapter
 #  snippet: studio-rpc-usb-uart
 #  cmake-args: -DCONFIG_ZMK_STUDIO=y
 #  **Tester config below**
-#  - board: nice_nano_v2 # Replace with the Pro Micro-compatible board you're using
+#  - board: nice_nano # Replace with the Pro Micro-compatible board you're using
 #    shield: tester_pro_micro
 
 ---
 include:
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: ataraxia nice_view_adapter nice_view_gem
     snippet: zmk-usb-logging
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: ataraxia
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: settings_reset_ataraxia
     artifact-name: settings_reset_ataraxia
