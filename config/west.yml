@@ -12,6 +12,8 @@ manifest:
       url-base: https://github.com/M165437
     - name: nuovotaka
       url-base: https://github.com/nuovotaka
+    - name: caksoylar
+      url-base: https://github.com/caksoylar
 
   projects:
     - name: zmk
@@ -38,6 +40,13 @@ manifest:
     - name: zmk-pointing-acceleration-alpha
       remote: nuovotaka
       revision: 780dfcd6b796063367893ff41e233773e12fb07c # main HEAD as of 2026-07-02, pinned to stop silent drift
+    - name: zmk-rgbled-widget
+      remote: caksoylar
+      revision: a9543efccff83ef4920fcc9ec7161dac905fa64b # main HEAD as of 2026-07-03
+      # Required because ataraxia_v2's own default ataraxia.conf sets
+      # CONFIG_RGBLED_WIDGET_LAYER_*_COLOR, which is only a defined Kconfig
+      # symbol when this module is present -- v2 boards have real status
+      # LEDs (led0/led1/led2 in ataraxia.dtsi) this widget drives.
 
   self:
     path: config
