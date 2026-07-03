@@ -38,6 +38,35 @@
 #include <dt-bindings/zmk/pointing.h>
 // #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/input_transform.h>
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
+
+/* Fix for the trackball's SPI0 MISO line: the shield module's own
+ * boards/nice_nano_v2.overlay wires MOSI and MISO to the same pin
+ * (P0.17), causing the PMW3610 to always read back product id 0xFF.
+ * This must live in the .keymap (not a plain config/ataraxia.overlay)
+ * because the module's own board fixup overlay is applied AFTER a
+ * plain ZMK_CONFIG overlay in the devicetree compile order -- keymap
+ * is the last file processed, so it's the only place guaranteed to
+ * actually win. Confirmed via CI build log's "Found devicetree
+ * overlay" ordering. */
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK,  0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 17)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 6)>;
+        };
+    };
+
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK,  0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 17)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 6)>;
+            low-power-enable;
+        };
+    };
+};
 
 
 #define ALPHA       0
