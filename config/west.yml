@@ -42,7 +42,7 @@ manifest:
       revision: 780dfcd6b796063367893ff41e233773e12fb07c # main HEAD as of 2026-07-02, pinned to stop silent drift
     - name: zmk-rgbled-widget
       remote: caksoylar
-      revision: 6d8e399307c78dcc74faf28e9a5a63e7734d5ef4 # pinned before the "Use new selected/preferred
+      revision: 6d8e399cb8ec794f9ade7def4223ceed764c0f14 # pinned before the "Use new selected/preferred
       # endpoint API" commit (21e8004), which calls zmk_endpoint_get_selected() -- a function that
       # doesn't exist in our pinned ZMK v0.3 (only zmk_endpoints_selected()). This commit predates
       # that break and still has ZMK v0.2-era compatibility shims.
