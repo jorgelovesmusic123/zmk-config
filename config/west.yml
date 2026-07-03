@@ -24,16 +24,16 @@ manifest:
       import: app/west.yml
     - name: zmk-keyboards-ataraxia
       remote: miketronic
-      revision: main
+      revision: 9adc01804ded58a005cbe9bbf86b9be22bb65363 # main HEAD as of 2026-07-02, pinned to stop silent drift
     - name: nice-view-gem
       remote: m165437
       revision: v0.3.0
     - name: zmk-pmw3610-driver
       remote: efogdev
-      revision: main
+      revision: 42e0a8557a3adc43231fef4234f23e530034e427 # main HEAD as of 2026-07-02, pinned to stop silent drift
     - name: zmk-pointing-acceleration-alpha
       remote: nuovotaka
-      revision: main
+      revision: 780dfcd6b796063367893ff41e233773e12fb07c # main HEAD as of 2026-07-02, pinned to stop silent drift
     - name: zmk-input-processor-report-rate-limit
       remote: badjeff
       revision: f43f37a
