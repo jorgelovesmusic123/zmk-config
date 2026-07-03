@@ -24,7 +24,10 @@ manifest:
       import: app/west.yml
     - name: zmk-keyboards-ataraxia
       remote: miketronic
-      revision: 9adc01804ded58a005cbe9bbf86b9be22bb65363 # main HEAD as of 2026-07-02, pinned to stop silent drift
+      revision: 282c48de14ff44c2bd322698c9daf957f4710878 # ataraxia_v2 branch HEAD as of 2026-07-03 -- maker
+      # confirmed this is a v2 board with different wiring than `main`'s default;
+      # v2 branch has different kscan col/row-gpios (cols 6-11 and row3 differ) which
+      # matches the dead U/J/M column symptom exactly. See PR discussion.
     - name: nice-view-gem
       remote: m165437
       revision: v0.3.0
