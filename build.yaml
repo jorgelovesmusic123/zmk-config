@@ -28,11 +28,3 @@ include:
   - board: nice_nano_v2
     shield: settings_reset_ataraxia
     artifact-name: settings_reset_ataraxia
-  # Temporary: USB CDC-ACM debug logging build to diagnose why the
-  # automouse-layer trigger isn't activating at runtime despite compiling
-  # in correctly. Remove once diagnosed.
-  - board: nice_nano_v2
-    shield: ataraxia nice_view_gem
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_USB_LOGGING=y
-    artifact-name: ataraxia-debug
