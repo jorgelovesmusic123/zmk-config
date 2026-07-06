@@ -45,6 +45,18 @@
 #define NUMBER      2
 #define FUNCTION    3
 #define MOUSE       4
+#define AUTOMOUSE   6
+
+/* Auto-activate a dedicated, mostly-transparent layer while the trackball is
+ * moving (ZSA Voyager Navigator-style behavior), using driver-02's native
+ * automouse-layer feature. Deliberately NOT layer 4 or 5 (MOUSE_layer's
+ * scroll-layers = <4 5>, per the module's own nice_nano_v2.overlay) or layer
+ * 7 (snipe-layers) -- using one of those would mean ball movement gets
+ * reinterpreted as scroll/snipe instead of plain cursor movement the moment
+ * auto-activation kicks in. */
+&trackball {
+    automouse-layer = <AUTOMOUSE>;
+};
 
 #define ESCFN  &lt FUNCTION ESC
 #define NTAB   &lt NUMBER TAB
@@ -239,8 +251,14 @@
             status = "reserved";
         };
 
-        extra2 {
-            status = "reserved";
+        AUTOMOUSE_layer {
+            display-name = "AUTOMOUSE";
+            bindings = <
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                                    &trans &trans &trans          &trans &trans &trans
+            >;
         };
 
         extra3 {
