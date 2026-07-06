@@ -1,0 +1,19 @@
+/*
+ * Adds a second CDC-ACM UART instance dedicated to the Zephyr/ZMK console,
+ * separate from the studio-rpc-usb-uart snippet's own instance (used only
+ * for the Studio RPC protocol, not general logging). This board doesn't
+ * define a zephyr,console chosen node by default (confirmed against ZMK
+ * core's nice_nano.dtsi/nice_nano_v2.dts), which is what made
+ * CONFIG_ZMK_USB_LOGGING fail to compile without this.
+ */
+&zephyr_udc0 {
+    cdc_acm_uart_console: cdc_acm_uart_console {
+        compatible = "zephyr,cdc-acm-uart";
+    };
+};
+
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart_console;
+    };
+};
