@@ -58,6 +58,12 @@
  * the manual way back to the base layer. */
 &trackball {
     automouse-layer = <AUTOMOUSE>;
+    /* The shield's board fixup sets scroll-layers = <4 5>, but layer 4 is
+     * MOUSE -- the very layer held via MSEA to get click-button access. That
+     * made holding MSEA reinterpret ball movement as scrolling instead of
+     * cursor movement ("locks the cursor"). Layer 5 isn't bound to any key,
+     * so dropping 4 here costs nothing and fixes that. */
+    scroll-layers = <5>;
 };
 
 #define ESCFN  &lt FUNCTION ESC
