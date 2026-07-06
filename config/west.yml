@@ -10,13 +10,11 @@ manifest:
       url-base: https://github.com/miketronic
     - name: m165437
       url-base: https://github.com/M165437
-    - name: efogdev
-      url-base: https://github.com/efogdev
     - name: nuovotaka
       url-base: https://github.com/nuovotaka
-    - name: badjeff
-      url-base: https://github.com/badjeff
-      
+    - name: caksoylar
+      url-base: https://github.com/caksoylar
+
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -24,19 +22,34 @@ manifest:
       import: app/west.yml
     - name: zmk-keyboards-ataraxia
       remote: miketronic
-      revision: main
+      revision: 282c48de14ff44c2bd322698c9daf957f4710878 # ataraxia_v2 branch HEAD as of 2026-07-03 -- maker
+      # confirmed this is a v2 board with different wiring than `main`'s default;
+      # v2 branch has different kscan col/row-gpios (cols 6-11 and row3 differ) which
+      # matches the dead U/J/M column symptom exactly. See PR discussion.
     - name: nice-view-gem
       remote: m165437
       revision: v0.3.0
-    - name: zmk-pmw3610-driver
-      remote: efogdev
-      revision: main
+    - name: zmk-pmw3610-driver-02
+      remote: miketronic
+      revision: e2a5c45dc7bcb9c7cca438da129140da1cce94c4 # main HEAD as of 2026-07-03
+      # This is miketronic's fork of Inorichi/Kumamuk's pmw3610 driver, which
+      # matches ataraxia_v2's trackball@0 node (scroll-layers/snipe-layers/
+      # automouse-layer properties). efogdev's driver (used previously)
+      # expects a different binding schema (evt-type/x-input-code/
+      # y-input-code) and fails to compile against the v2 shield module.
     - name: zmk-pointing-acceleration-alpha
       remote: nuovotaka
-      revision: main
-    - name: zmk-input-processor-report-rate-limit
-      remote: badjeff
-      revision: f43f37a
+      revision: 780dfcd6b796063367893ff41e233773e12fb07c # main HEAD as of 2026-07-02, pinned to stop silent drift
+    - name: zmk-rgbled-widget
+      remote: caksoylar
+      revision: 6d8e399cb8ec794f9ade7def4223ceed764c0f14 # pinned before the "Use new selected/preferred
+      # endpoint API" commit (21e8004), which calls zmk_endpoint_get_selected() -- a function that
+      # doesn't exist in our pinned ZMK v0.3 (only zmk_endpoints_selected()). This commit predates
+      # that break and still has ZMK v0.2-era compatibility shims.
+      # Required because ataraxia_v2's own default ataraxia.conf sets
+      # CONFIG_RGBLED_WIDGET_LAYER_*_COLOR, which is only a defined Kconfig
+      # symbol when this module is present -- v2 boards have real status
+      # LEDs (led0/led1/led2 in ataraxia.dtsi) this widget drives.
 
   self:
     path: config
