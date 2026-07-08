@@ -45,6 +45,7 @@
 #define NUMBER      2
 #define FUNCTION    3
 #define MOUSE       4
+#define SCROLL      5
 #define AUTOMOUSE   6
 
 /* Auto-activate a dedicated layer while the trackball is moving (ZSA Voyager
@@ -61,15 +62,18 @@
     /* The shield's board fixup sets scroll-layers = <4 5>, but layer 4 is
      * MOUSE -- the very layer held via MSEA to get click-button access. That
      * made holding MSEA reinterpret ball movement as scrolling instead of
-     * cursor movement ("locks the cursor"). Layer 5 isn't bound to any key,
-     * so dropping 4 here costs nothing and fixes that. */
-    scroll-layers = <5>;
+     * cursor movement ("locks the cursor"). Dropped 4 so MSEA no longer
+     * forces scroll; SCROLL(5) is now reached independently via SCRH below. */
+    scroll-layers = <SCROLL>;
 };
 
 #define ESCFN  &lt FUNCTION ESC
 #define NTAB   &lt NUMBER TAB
 #define SYMZ   &lt SYMBOL Z
 #define MSEA   &lt MOUSE A
+/* Hold for scroll mode (trackball movement becomes scroll instead of cursor
+ * movement), tap for GUI as before -- independent of MOUSE/MSEA. */
+#define SCRH   &lt SCROLL RGUI
 
 #define LSHF    &kp LSHFT
 #define RSHF    &kp RSHFT
@@ -211,7 +215,7 @@
                 ESCFN   &kp Q   &kp W   &kp E   &kp R   &kp T   &kp Y   &kp U   &kp I   &kp O   &kp P    BSPC_W
                 NTAB    MSEA    &kp S   &kp D   &kp F   &kp G   &kp H   &kp J   &kp K   &kp L   &kp SEMI &kp QUOT
                 LSHF    SYMZ    &kp X   &kp C   &kp V   &kp B   &kp N   &kp M   COMM    &kp DOT &kp FSLH &kp CAPS
-                                &kp LCTRL &kp LALT SPC_C  &kp RET   &kp RGUI &kp DEL
+                                &kp LCTRL &kp LALT SPC_C  &kp RET   SCRH &kp DEL
             >;
         };
 
@@ -255,8 +259,19 @@
             >;
         };
 
-        extra1 {
-            status = "reserved";
+        SCROLL_layer {
+            display-name = "SCROLL";
+            /* Fully transparent -- typing keys still work normally while
+             * held. Layer 5's ID alone (via scroll-layers = <SCROLL> above)
+             * is what makes the trackball driver treat ball movement as
+             * scroll input while this layer is active; no bindings needed
+             * here for that part. */
+            bindings = <
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                                    &trans &trans &trans          &trans &trans &trans
+            >;
         };
 
         AUTOMOUSE_layer {
