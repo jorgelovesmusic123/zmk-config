@@ -67,6 +67,32 @@
     scroll-layers = <SCROLL>;
 };
 
+/* zmk-pointing-acceleration-alpha, Level 2 (Standard) custom tuning -- see
+ * CONFIG_INPUT_PROCESSOR_ACCEL_LEVEL_STANDARD/_PRESET_CUSTOM in ataraxia.conf.
+ * This runs on every ball movement AND scroll event alike (it doesn't
+ * distinguish them at runtime despite the per-axis "codes" property), so
+ * these values shape both. All values below are a first-guess starting
+ * point -- easy to retune, no other files involved:
+ *   sensitivity          1000 = 1.0x baseline speed multiplier
+ *   max-factor           multiplier applied once speed-max is reached
+ *   min-factor           multiplier applied below speed-threshold (<1000 = slows down slow movements, 1000 = no effect)
+ *   speed-threshold       counts/sec below which no acceleration is applied
+ *   speed-max             counts/sec at which max-factor is fully reached
+ *   acceleration-exponent  1=linear, 2=mild, 3=moderate, 4=strong, 5=aggressive curve between the thresholds
+ *   y-boost               extra Y-axis multiplier on top of the above (1000 = none)
+ *   sensor-dpi             should match CONFIG_PMW3610_CPI above (800) -- used to scale the counts/sec math correctly
+ */
+&pointer_accel {
+    sensitivity = <1200>;
+    max-factor = <2200>;
+    min-factor = <1000>;
+    speed-threshold = <500>;
+    speed-max = <2500>;
+    acceleration-exponent = <2>;
+    y-boost = <1000>;
+    sensor-dpi = <800>;
+};
+
 #define ESCFN  &lt FUNCTION ESC
 #define NTAB   &lt NUMBER TAB
 #define SYMZ   &lt SYMBOL Z
