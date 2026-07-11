@@ -23,11 +23,15 @@ manifest:
       revision: v0.3
       import: app/west.yml
     - name: zmk-keyboards-ataraxia
-      remote: miketronic
-      revision: 282c48de14ff44c2bd322698c9daf957f4710878 # ataraxia_v2 branch HEAD as of 2026-07-03 -- maker
-      # confirmed this is a v2 board with different wiring than `main`'s default;
-      # v2 branch has different kscan col/row-gpios (cols 6-11 and row3 differ) which
-      # matches the dead U/J/M column symptom exactly. See PR discussion.
+      remote: jorgelovesmusic123
+      revision: 5a1d45c3c212acb6ed0eb0d3affdaab960dc796c # user-tunable-conf branch
+      # Our fork of miketronic's ataraxia_v2 branch (from 282c48d, the v2
+      # wiring this board needs) with ONE change: the shield's bundled
+      # ataraxia.conf no longer sets preference-tuning values (SCROLL_TICK,
+      # SNIPE_CPI, accel level/preset). Shield-module .conf fragments merge
+      # AFTER config/ataraxia.conf, so those lines silently overrode every
+      # tuning attempt in this repo -- config/ataraxia.conf is now the single
+      # source of truth for trackball tuning.
     - name: nice-view-gem
       remote: m165437
       revision: v0.3.0
