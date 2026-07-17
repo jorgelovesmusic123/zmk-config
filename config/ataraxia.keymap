@@ -48,17 +48,13 @@
 #define SCROLL      5
 #define AUTOMOUSE   6
 
-/* Auto-activate a dedicated layer while the trackball is moving (ZSA Voyager
- * Navigator-style behavior), using driver-02's native automouse-layer
- * feature. Deliberately NOT layer 4 or 5 (MOUSE_layer's scroll-layers = <4
- * 5>, per the module's own nice_nano_v2.overlay) or layer 7 (snipe-layers)
- * -- using one of those would mean ball movement gets reinterpreted as
- * scroll/snipe instead of plain cursor movement the moment auto-activation
- * kicks in. CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS is set very high so this
- * stays active instead of timing out; see AUTOMOUSE_layer's &to ALPHA for
- * the manual way back to the base layer. */
+/* Automouse (Navigator-style auto-activation of a layer on ball movement)
+ * was tried and removed: it caused mistypes in practice. No automouse-layer
+ * property is set, so the driver's auto-shift never fires; the mouse layer
+ * is only entered deliberately (hold MSEA, or a Studio-bound toggle key for
+ * layer 4). AUTOMOUSE_layer (6) below is kept as an inert placeholder so
+ * layer indices stay stable for ZMK Studio-saved keymaps. */
 &trackball {
-    automouse-layer = <AUTOMOUSE>;
     /* The shield's board fixup sets scroll-layers = <4 5>, but layer 4 is
      * MOUSE -- the very layer held via MSEA to get click-button access. That
      * made holding MSEA reinterpret ball movement as scrolling instead of
